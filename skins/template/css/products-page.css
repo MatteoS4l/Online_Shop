@@ -1,0 +1,299 @@
+/* Products Page Styles */
+
+/* View mode buttons */
+#grid-view-btn.how-active1,
+#list-view-btn.how-active1 {
+    background-color: #717fe0;
+    color: white !important;
+    border-color: #717fe0;
+}
+
+/* List view specific styles */
+.list-view .isotope-item {
+    width: 100% !important;
+}
+
+.block2-list {
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.block2-list:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.block2-pic-list {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.block2-pic-list img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.block2-btn-list {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.block2-pic-list:hover .block2-btn-list {
+    opacity: 1;
+}
+
+.block2-txt-list {
+    flex: 1;
+    min-width: 0;
+}
+
+.block2-actions-list {
+    align-items: flex-start;
+    min-width: 60px;
+}
+
+/* Filter improvements */
+.filter-link.filter-link-active {
+    color: #717fe0 !important;
+    font-weight: 600;
+}
+
+.hov-tag1:hover {
+    background-color: #717fe0;
+    color: white !important;
+}
+
+.how-active1 {
+    background-color: #717fe0 !important;
+    color: white !important;
+}
+
+/* Loading states */
+.zmdi-hc-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Product promotion badges */
+.product-promotion span {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: white !important;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* Price styling */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.txt-line-through {
+    text-decoration: line-through;
+    color: #999 !important;
+    font-size: 0.9em;
+}
+
+.cl10 {
+    color: #e74c3c !important;
+    font-weight: 600;
+}
+
+/* Rating stars */
+.product-rating i {
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+/* Stock status */
+.product-stock span {
+    font-size: 12px;
+    color: #27ae60;
+}
+
+/* Title page improvements */
+.bg-img1 {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.bg-img1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.bg-img1 h2 {
+    position: relative;
+    z-index: 2;
+}
+
+/* Breadcrumb styling */
+.bread-crumb {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* Panel animations */
+.panel-filter,
+.panel-search {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* Search input improvements */
+.panel-search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.panel-search input:focus {
+    background-color: #f8f9fa;
+}
+
+/* Button hover effects */
+.js-show-filter:hover,
+.js-show-search:hover,
+#grid-view-btn:hover,
+#list-view-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #717fe0;
+}
+
+/* Pagination styles */
+.how-pagination1 {
+    min-width: 40px;
+    height: 40px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.how-pagination1:hover {
+    background-color: #717fe0;
+    color: white;
+    border-color: #717fe0;
+    text-decoration: none;
+}
+
+.active-pagination1 {
+    background-color: #717fe0 !important;
+    color: white !important;
+    border-color: #717fe0 !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .block2-list {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .block2-pic-list {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 15px;
+    }
+    
+    .block2-txt-list {
+        padding-left: 0 !important;
+    }
+    
+    .block2-actions-list {
+        flex-direction: row;
+        justify-content: center;
+        min-width: auto;
+        margin-top: 15px;
+    }
+    
+    .wrap-filter {
+        padding: 15px !important;
+    }
+    
+    .filter-col1,
+    .filter-col2,
+    .filter-col3,
+    .filter-col4 {
+        width: 100%;
+        margin-bottom: 20px;
+        padding-right: 0 !important;
+    }
+    
+    .flex-w.flex-c-m.m-tb-10 {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .flex-w.flex-c-m.m-tb-10 > div {
+        margin: 5px 0;
+    }
+}
+
+/* No products message */
+.no-products-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #666;
+}
+
+.no-products-message i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+/* Error message styling */
+.error-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #e74c3c;
+}
+
+/* Load more button styling */
+#load-more-btn {
+    transition: all 0.3s ease;
+}
+
+#load-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(113, 127, 224, 0.3);
+}
+
+/* Product grid improvements */
+.isotope-grid .isotope-item {
+    transition: all 0.3s ease;
+}
+
+.isotope-item:hover .block2 {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}

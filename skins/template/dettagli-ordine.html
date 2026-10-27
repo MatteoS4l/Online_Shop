@@ -1,0 +1,101 @@
+<!-- Hero/title section in palette -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('skins/template/images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center" style="font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px;">
+        Dettaglio Ordine
+    </h2>
+</section>
+
+<div class="container mt-5 pb-5">
+    <!-- Messaggio errore -->
+    <div class="alert alert-danger text-center mt-4 shadow-sm border-0" style="display: <[SHOW_ERROR]>; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;">
+        <strong><[ERROR_MSG]></strong>
+    </div>
+    <div style="display: <[SHOW_ORDER]>;">
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="p-4 rounded shadow-sm" style="background: #F2F2F2;">
+                    <h5 class="mb-3" style="color: #6C7AE0; font-weight: 700;">Dati Ordine</h5>
+                    <div class="mb-2"><strong>ID Ordine:</strong> <span style="color: #6C7AE0;">#[<[ID_ORDINE]>]</span></div>
+                    <div class="mb-2"><strong>Data:</strong> <[DATA_ORDINE]></div>
+                    <div class="mb-2"><strong>Stato:</strong> <span class="badge" style="background: #6C7AE0; color: #fff; font-size: 1em;"> <[STATO_ORDINE]> </span></div>
+                    <div class="mb-2"><strong>Indirizzo spedizione:</strong> <[INDIRIZZO_SPEDIZIONE]></div>
+                    <div class="mb-2"><strong>Corriere:</strong> <[NOME_CORRIERE]></div>
+                    <div class="mb-2"><strong>Metodo di pagamento:</strong> <[NOME_PAGAMENTO]></div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="p-4 rounded shadow-sm" style="background: #F2F2F2;">
+                    <h5 class="mb-3" style="color: #6C7AE0; font-weight: 700;">Totale Ordine</h5>
+                    <div style="font-size: 1.5em; color: #222; font-weight: 700;">€ <[TOTALE_ORDINE]></div>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow border-0">
+            <div class="card-header" style="background: #6C7AE0; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; border-bottom: 2px solid #E6E6E6;">
+                Prodotti ordinati
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center mb-0" style="font-family: 'Montserrat', sans-serif; background: #F2F2F2;">
+                    <thead style="background-color: #6C7AE0; color: #fff;">
+                        <tr style="text-align: center;">
+                            <th style="border: none; width: 60px; text-align: center;"> </th>
+                            <th style="border: none; text-align: center;">Prodotto</th>
+                            <th style="border: none; text-align: center;">Quantità</th>
+                            <th style="border: none; text-align: center;">Prezzo unitario</th>
+                            <th style="border: none; text-align: center;">Subtotale</th>
+                            <th style="border: none; text-align: center;">Recensisci</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background: #FAFAFA; color: #222;">
+                        <[foreach]> <[ELEMENTO_PRODOTTO]> <[/foreach]>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- Popup recensione prodotto -->
+<style>
+  /* Forza overlay scuro e centratura verticale */
+  #recensioneModal .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+  }
+  #recensioneModal .modal-content {
+    margin: auto;
+    box-shadow: 0 0 40px 0 rgba(0,0,0,0.25);
+  }
+  .modal-backdrop.show {
+    opacity: 0.85;
+  }
+</style>
+<div class="modal fade" id="recensioneModal" tabindex="-1" aria-labelledby="recensioneModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #6C7AE0; color: #fff;">
+        <h5 class="modal-title" id="recensioneModalLabel">Lascia una recensione</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="recensioneForm">
+          <input type="hidden" name="id_prodotto" id="recensione_id_prodotto">
+          <div class="mb-3 text-center">
+            <span id="stelleContainer">
+              <!-- Stelle JS -->
+            </span>
+          </div>
+          <div class="mb-3">
+            <textarea class="form-control" name="testo" id="recensione_testo" rows="3" placeholder="Scrivi la tua recensione..."></textarea>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary" style="background: #6C7AE0; border: none;">Invia</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

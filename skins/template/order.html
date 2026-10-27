@@ -1,0 +1,34 @@
+<!-- Hero/title section in palette -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('skins/template/images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center" style="font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px;">
+        I Tuoi Ordini
+    </h2>
+</section>
+
+<div class="container mt-5 pb-5"><!-- aggiunto pb-5 per spazio sotto -->
+    <!-- Messaggio di conferma ordine -->
+    <div class="alert shadow-sm border-0" role="alert" style="display: <[SHOW_SUCCESS_MSG]>; background: #eafbe7; color: #2e7d32; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;">
+        <[SUCCESS_MSG]>
+    </div>
+    <!-- Messaggio se nessun ordine -->
+    <div class="alert text-center mt-4 shadow-sm border-0" style="display: <[SHOW_EMPTY_MSG]>; background: #FAFAFA; color: #6C7AE0; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;">
+        <strong>Storico Ordini Assente</strong>
+    </div>
+    <div class="card mt-4 shadow" style="display: <[SHOW_ORDERS_TABLE]>; border: none; background: #F2F2F2;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0" id="order-table" style="font-family: 'Montserrat', sans-serif; background: #F2F2F2;">
+                <thead style="background-color: #6C7AE0; color: #fff;">
+                    <tr>
+                        <th style="border: none;">CODICE</th>
+                        <th style="border: none;">DATA</th>
+                        <th style="border: none;">TOTALE</th>
+                        <th style="border: none;">STATO</th>
+                    </tr>
+                </thead>
+                <tbody style="background: #FAFAFA; color: #222;">
+                    <[foreach]> <[ELEMENTO_ORDINE]> <[/foreach]>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+/* === CARRELLO CUSTOM STYLES === */
+
+.table-shopping-cart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.table-shopping-cart th,
+.table-shopping-cart td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e6e6e6;
+    vertical-align: middle;
+}
+
+.table_head th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.table_row:hover {
+    background-color: #f8f9fa;
+}
+
+.how-itemcart1 {
+    cursor: pointer;
+    position: relative !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.how-itemcart1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.cart-remove-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(220, 53, 69, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.cart-remove-overlay i {
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.how-itemcart1:hover .cart-remove-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.how-itemcart1:hover img {
+    opacity: 0.3;
+    transform: scale(1.1);
+}
+
+.wrap-num-product {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 120px;
+}
+
+.btn-num-product-down,
+.btn-num-product-up {
+    width: 35px;
+    height: 35px;
+    background: #f8f9fa;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-num-product-down:hover,
+.btn-num-product-up:hover {
+    background: #717fe0;
+    color: white;
+}
+
+.num-product {
+    width: 50px;
+    height: 35px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    outline: none;
+}
+
+.btn-remove-from-cart {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.btn-remove-from-cart:hover {
+    color: #e74c3c;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-cart i {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.empty-cart h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.empty-cart p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table-shopping-cart {
+        font-size: 12px;
+    }
+    
+    .table-shopping-cart th,
+    .table-shopping-cart td {
+        padding: 8px;
+    }
+    
+    .how-itemcart1 {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .cart-remove-overlay i {
+        font-size: 20px;
+    }
+    
+    .wrap-num-product {
+        width: 100px;
+    }
+    
+    .btn-num-product-down,
+    .btn-num-product-up {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .num-product {
+        width: 40px;
+        height: 30px;
+        font-size: 12px;
+    }
+}

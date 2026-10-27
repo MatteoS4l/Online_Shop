@@ -1,0 +1,30 @@
+<tr class="table_row">
+    <td class="column-1" style="text-align: center;">
+        <div class="how-itemcart1" 
+             style="position: relative; cursor: pointer;" 
+             onclick="console.log('❌ X cliccata per prodotto:', '<[ID_PRODOTTO]>', '<[TAGLIA_PRODOTTO]>'); rimuoviDaCarrello('<[ID_PRODOTTO]>', '<[TAGLIA_PRODOTTO]>')"
+             title="Clicca per rimuovere dal carrello">
+            <img src="<[URL_IMMAGINE]>" alt="<[NOME_PRODOTTO]>">
+            <div class="cart-remove-overlay">
+                <i class="fa fa-times"></i>
+            </div>
+        </div>
+    </td>
+    <td class="column-2" style="text-align: center;"><[NOME_PRODOTTO]></td>
+    <td class="column-3" style="text-align: center;">€<[PREZZO_SINGOLO]></td>
+    <td class="column-4" style="text-align: center;">
+        <[TAGLIA_PRODOTTO]>
+    </td>
+    <td class="column-5" style="text-align: center;">
+        <div class="wrap-num-product flex-w m-l-auto m-r-0" style="display: flex; flex-direction: row;">
+            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                <i class="fs-16 zmdi zmdi-minus"></i>
+            </div>
+            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<[QUANTITA]>" data-product-id="<[ID_PRODOTTO]>" data-size="<[TAGLIA_PRODOTTO]>" min="1" max="<[Q_MAX]>">
+            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                <i class="fs-16 zmdi zmdi-plus"></i>
+            </div>
+        </div>
+    </td>
+    <td class="column-6" style="text-align: center;">€<[PREZZO_SINGOLO_TOT]></td>
+</tr>

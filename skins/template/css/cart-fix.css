@@ -1,0 +1,30 @@
+/* Aggiunta per assicurarci che i pulsanti + e - siano in orizzontale */
+.wrap-num-product {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  width: 140px;
+  height: 45px;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.btn-num-product-down,
+.btn-num-product-up {
+  width: 45px;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.num-product {
+  width: calc(100% - 90px);
+  height: 100%;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  background-color: #f7f7f7;
+  text-align: center;
+}

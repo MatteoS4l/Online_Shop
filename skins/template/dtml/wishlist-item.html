@@ -1,0 +1,30 @@
+<tr class="table_row" data-product-id="<[PRODUCT_ID]>">
+	<td class="column-1" style="text-align: center;">
+		<div class="how-itemwishlist" 
+			 style="margin: 0 auto; position: relative; cursor: pointer;" 
+			 onclick="removeFromWishlist('<[PRODUCT_ID]>')"
+			 title="Clicca per rimuovere dai preferiti">
+			<img src="<[PRODUCT_IMAGE]>" alt="<[PRODUCT_NAME]>">
+			<div class="wishlist-remove-overlay">
+				<i class="fa fa-times"></i>
+			</div>
+		</div>
+	</td>
+	<td class="column-2" style="text-align: center;">
+		<a href="product.php?id=<[PRODUCT_ID]>" class="stext-104 cl4 hov-cl1 trans-04">
+			<[PRODUCT_NAME]>
+		</a>
+	</td>
+	<td class="column-3" style="text-align: center;">€<[PRODUCT_PRICE]></td>
+	<td class="column-4" style="text-align: center;"><[DATE_ADDED]></td>
+	<td class="column-5" style="text-align: center !important; padding-left: 0 !important; padding-right: 0 !important;">
+		<div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+			<button class="flex-c-m stext-101 cl0 size-107 bg3 bor14 hov-btn3 p-8 trans-04 pointer" 
+					onclick="addToCart(<[PRODUCT_ID]>)" 
+					data-tooltip="Aggiungi al carrello"
+					style="width: 40px; height: 40px; flex-shrink: 0;">
+				<i class="fa fa-shopping-cart"></i>
+			</button>
+		</div>
+	</td>
+</tr>

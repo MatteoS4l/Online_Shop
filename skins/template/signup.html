@@ -1,0 +1,235 @@
+<!-- Sign 						<!-- Messages section -->
+
+	<section class="bg0 p-t-104 p-b-116">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					<form method="post" action="" id="signupForm">
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Registrati
+						</h4>
+
+						<!-- Messages section -->
+						<div class="txt-center p-b-20">
+							<[MESSAGE]>
+						</div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="nome" placeholder="Nome" required>
+							<i class="how-pos4 pointer-none zmdi zmdi-account cl2"></i>
+						</div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="cognome" placeholder="Cognome"required>
+							<i class="how-pos4 pointer-none zmdi zmdi-account cl2"></i>
+						</div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder="Email" required>
+							<i class="how-pos4 pointer-none zmdi zmdi-email cl2"></i>
+						</div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" id="password" placeholder="Password" required>
+							<i class="how-pos4 pointer-none zmdi zmdi-lock cl2"></i>
+						</div>
+
+						<div class="bor8 m-b-30 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="confirm_password" id="confirmPassword" placeholder="Conferma Password" required>
+							<i class="how-pos4 pointer-none zmdi zmdi-lock cl2"></i>
+						</div>
+
+						<!-- Password match warning -->
+						<div class="txt-center m-b-20">
+							<span id="passwordWarning" class="stext-105" style="color: red; display: none;">
+								Le password non corrispondono!
+							</span>
+						</div>
+
+						<div class="flex-w flex-sb-m m-b-25">
+							<div class="flex-w flex-c-m">
+								<input class="m-r-8" type="checkbox" id="terms" name="terms" required>
+								<label class="stext-105 cl2" for="terms">
+									Accetto i <a href="#" class="stext-105 cl2 hov-cl1 trans-04" style="font-weight: bold;">Termini e Condizioni </a> del contratto
+								</label>
+							</div>
+						</div>
+
+						<button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer w-full" id="signupBtn" style="opacity: 0.5; cursor: not-allowed;" disabled>
+							Registrati
+						</button>
+
+						<div class="txt-center p-t-30">
+							<span class="stext-105 cl2">
+								Hai già un account?
+							</span>
+							<a href="/mioecom/login.php" class="stext-105 cl2 hov-cl1 trans-04" style="font-weight: bold;">
+								Accedi
+							</a>
+						</div>
+					</form>
+				</div>
+
+				<div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+					<div class="flex-w w-full p-b-42">
+						<span class="fs-18 cl5 txt-center size-211">
+							<i class="fa fa-shield"></i>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Registrazione Sicura
+							</span>
+
+							<p class="stext-115 cl6 size-213 p-t-18">
+								Le tue informazioni personali sono crittografate e archiviate in sicurezza.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex-w w-full p-b-42">
+						<span class="fs-18 cl5 txt-center size-211">
+							<i class="fa fa-star"></i>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Esperienza Premium
+							</span>
+
+							<p class="stext-115 cl6 size-213 p-t-18">
+								Scopri il miglior sito di e-commerce con prodotti di qualità e servizio eccellente.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex-w w-full">
+						<span class="fs-18 cl5 txt-center size-211">
+							<i class="fa fa-heart"></i>
+						</span>
+
+						<div class="size-212 p-t-2">
+							<span class="mtext-110 cl2">
+								Soddisfazione Garantita
+							</span>
+
+							<p class="stext-115 cl6 size-213 p-t-18">
+								La tua soddisfazione è la nostra priorità con un servizio clienti sempre disponibile.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- JavaScript for form validation -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const nome = document.querySelector('input[name="nome"]');
+			const cognome = document.querySelector('input[name="cognome"]');
+			const email = document.querySelector('input[name="email"]');
+			const password = document.getElementById('password');
+			const confirmPassword = document.getElementById('confirmPassword');
+			const passwordWarning = document.getElementById('passwordWarning');
+			const signupBtn = document.getElementById('signupBtn');
+			const termsCheckbox = document.getElementById('terms');
+
+			// Imposta lo stato iniziale del bottone
+			updateButtonState();
+
+			function validatePassword(passwordValue) {
+				if (passwordValue.length < 8) {
+					return 'La password deve contenere almeno 8 caratteri!';
+				}
+				if (!/[0-9]/.test(passwordValue)) {
+					return 'La password deve contenere almeno un numero!';
+				}
+				return null;
+			}
+
+			function validateEmail(emailValue) {
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if (!emailRegex.test(emailValue)) {
+					return 'L\'email non è valida (formato richiesto: esempio@dominio.com)!';
+				}
+				return null;
+			}
+
+			function validateForm() {
+				const nomeValue = nome.value.trim();
+				const cognomeValue = cognome.value.trim();
+				const emailValue = email.value.trim();
+				const passwordValue = password.value;
+				const confirmPasswordValue = confirmPassword.value;
+
+				// Reset warning
+				passwordWarning.style.display = 'none';
+
+				// Controlla che tutti i campi siano riempiti
+				if (!nomeValue || !cognomeValue || !emailValue || !passwordValue || !confirmPasswordValue || !termsCheckbox.checked) {
+					return false;
+				}
+
+				// Valida email
+				const emailError = validateEmail(emailValue);
+				if (emailError) {
+					passwordWarning.textContent = emailError;
+					passwordWarning.style.display = 'block';
+					passwordWarning.style.color = 'red';
+					return false;
+				}
+
+				// Valida password
+				const passwordError = validatePassword(passwordValue);
+				if (passwordError) {
+					passwordWarning.textContent = passwordError;
+					passwordWarning.style.display = 'block';
+					passwordWarning.style.color = 'red';
+					return false;
+				}
+
+				// Controlla se le password corrispondono
+				if (passwordValue !== confirmPasswordValue) {
+					passwordWarning.textContent = 'Le password non corrispondono!';
+					passwordWarning.style.display = 'block';
+					passwordWarning.style.color = 'red';
+					return false;
+				}
+
+				// Tutto ok
+				passwordWarning.style.display = 'none';
+				return true;
+			}
+
+			function updateButtonState() {
+				const isValid = validateForm();
+				
+				if (isValid) {
+					signupBtn.disabled = false;
+					signupBtn.style.opacity = '1';
+					signupBtn.style.cursor = 'pointer';
+				} else {
+					signupBtn.disabled = true;
+					signupBtn.style.opacity = '0.5';
+					signupBtn.style.cursor = 'not-allowed';
+				}
+			}
+
+			// Aggiungi event listeners a tutti i campi
+			[nome, cognome, email, password, confirmPassword].forEach(field => {
+				field.addEventListener('input', updateButtonState);
+				field.addEventListener('blur', updateButtonState);
+			});
+
+			termsCheckbox.addEventListener('change', updateButtonState);
+
+			// Form submission validation
+			document.getElementById('signupForm').addEventListener('submit', function(e) {
+				if (!validateForm()) {
+					e.preventDefault();
+					alert('Correggi gli errori evidenziati prima di procedere.');
+				}
+			});
+		});
+	</script>

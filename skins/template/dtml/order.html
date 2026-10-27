@@ -1,0 +1,25 @@
+<!-- order.html - Pagina ordini utente per mioecom -->
+<div class="container mt-5">
+    <h2>I tuoi ordini</h2>
+    <!-- Messaggio di conferma ordine, visibile solo dopo checkout -->
+    <div class="alert alert-success" role="alert" style="display: <[SHOW_SUCCESS_MSG]>">
+        <[SUCCESS_MSG]>
+    </div>
+    <!-- Elenco ordini -->
+    <div class="card mt-4">
+        <div class="card-header bg-warning text-dark">
+            Elenco ordini
+        </div>
+        <ul class="list-group list-group-flush">
+            <[foreach]> <[ORDINE_ITEM]> <[/foreach]>
+        </ul>
+    </div>
+</div>
+<!-- Template per singolo ordine -->
+<template id="ordine-item-template">
+    <li class="list-group-item">
+        <strong>Ordine #<[ID_ORDINE]>:</strong> <[DATA_ORDINE]> - Totale: <[TOTALE_ORDINE]> €
+        <br>
+        <span class="text-muted">Stato: <[STATO_ORDINE]></span>
+    </li>
+</template>

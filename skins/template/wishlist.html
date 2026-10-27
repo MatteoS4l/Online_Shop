@@ -1,0 +1,280 @@
+<!-- Title page -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('skins/template/images/bg-01.jpg');">
+    <h2 class="ltext-105 cl0 txt-center">
+        I Miei Preferiti (<span class="wishlist-count"><[WISHLIST_COUNT]></span>)
+    </h2>
+</section>
+
+<!-- Wishlist -->
+<section class="bg0 p-t-75 p-b-85 wishlist-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-xl-12 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1 text-center">Prodotto</th>
+                                <th class="column-2 text-center">Nome</th>
+                                <th class="column-3 text-center">Prezzo</th>
+                                <th class="column-4 text-center">Aggiunto il</th>
+                                <th class="column-5 text-center">Azioni</th>
+                            </tr>
+
+                            <[foreach]> <[elemento_wishlist]> <[/foreach]>
+
+                        </table>
+                    </div>
+
+                    <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                        <div class="flex-w flex-m m-r-20 m-tb-5">
+                            <a href="index.php" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+                                Continua lo Shopping
+                            </a>
+                        </div>
+
+                        <div class="flex-w flex-m m-tb-5">
+                            <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="clearWishlist()">
+                                Svuota Lista
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.table-shopping-cart {
+    text-align: center;
+}
+
+.table-shopping-cart th,
+.table-shopping-cart td {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.table-shopping-cart .column-1 {
+    width: 15%;
+}
+
+.table-shopping-cart .column-2 {
+    width: 30%;
+}
+
+.table-shopping-cart .column-3 {
+    width: 15%;
+}
+
+.table-shopping-cart .column-4 {
+    width: 20%;
+}
+
+.table-shopping-cart .column-5 {
+    width: 20%;
+}
+
+/* Stili per la wishlist con effetto hover per rimuovere - identici al carrello */
+.how-itemwishlist {
+    cursor: pointer;
+    position: relative !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.how-itemwishlist img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.wishlist-remove-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.wishlist-remove-overlay i {
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.how-itemwishlist:hover .wishlist-remove-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.how-itemwishlist:hover img {
+    opacity: 0.3;
+    transform: scale(1.1);
+}
+</style>
+
+<script>
+function clearWishlist() {
+    if (confirm('Sei sicuro di voler svuotare la lista dei preferiti?')) {
+        fetch('include/ajax/wishlist_ajax.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'clear_all'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Aggiorna contatori
+                const countSpan = document.querySelector('.wishlist-count');
+                if (countSpan) {
+                    countSpan.textContent = '0';
+                }
+                
+                const headerWishlistIcon = document.querySelector('a[href="wishlist.php"].icon-header-noti');
+                if (headerWishlistIcon) {
+                    headerWishlistIcon.setAttribute('data-notify', '0');
+                }
+                
+                // Mostra messaggio vuoto
+                const tbody = document.querySelector('.table-shopping-cart');
+                tbody.innerHTML = `
+                    <tr class="table_head">
+                        <th class="column-1 text-center">Prodotto</th>
+                        <th class="column-2 text-center">Nome</th>
+                        <th class="column-3 text-center">Prezzo</th>
+                        <th class="column-4 text-center">Aggiunto il</th>
+                        <th class="column-5 text-center">Azioni</th>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center p-t-40 p-b-40">
+                            <i class="fa fa-heart-o" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                            <h3>La tua lista preferiti è vuota</h3>
+                            <p>Aggiungi i tuoi prodotti preferiti cliccando sul cuore ❤️</p>
+                            <a href="index.php" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer m-t-20">
+                                Continua lo Shopping
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                alert('Errore nello svuotare la lista: ' + (data.message || 'Errore sconosciuto'));
+            }
+        })
+        .catch(error => {
+            console.error('❌ Errore:', error);
+            alert('Errore di connessione');
+        });
+    }
+}
+
+function removeFromWishlist(productId) {
+    if (confirm('Sei sicuro di voler rimuovere questo prodotto dai preferiti?')) {
+        const row = document.querySelector(`.table_row[data-product-id="${productId}"]`);
+        
+        // Invia richiesta AJAX per rimuovere dai preferiti
+        fetch('include/ajax/wishlist_ajax.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'remove',
+                product_id: productId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Rimuovi la riga dalla tabella con animazione
+                row.style.transition = 'opacity 0.3s ease';
+                row.style.opacity = '0';
+                
+                setTimeout(() => {
+                    row.remove();
+                    
+                    // Aggiorna il contatore
+                    const countSpan = document.querySelector('.wishlist-count');
+                    if (countSpan && data.count !== undefined) {
+                        countSpan.textContent = data.count;
+                    }
+                    
+                    // Se non ci sono più prodotti, mostra messaggio vuoto
+                    const remainingRows = document.querySelectorAll('.table_row');
+                    if (remainingRows.length === 0) {
+                        const tbody = document.querySelector('.table-shopping-cart');
+                        tbody.innerHTML = `
+                            <tr class="table_head">
+                                <th class="column-1 text-center">Prodotto</th>
+                                <th class="column-2 text-center">Nome</th>
+                                <th class="column-3 text-center">Prezzo</th>
+                                <th class="column-4 text-center">Aggiunto il</th>
+                                <th class="column-5 text-center">Azioni</th>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-center p-t-40 p-b-40">
+                                    <i class="fa fa-heart-o" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                                    <h3>La tua lista preferiti è vuota</h3>
+                                    <p>Aggiungi i tuoi prodotti preferiti cliccando sul cuore ❤️</p>
+                                    <a href="index.php" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer m-t-20">
+                                        Continua lo Shopping
+                                    </a>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                }, 300);
+                
+                // Aggiorna anche il contatore nell'header
+                const headerWishlistIcon = document.querySelector('a[href="wishlist.php"].icon-header-noti');
+                if (headerWishlistIcon && data.count !== undefined) {
+                    headerWishlistIcon.setAttribute('data-notify', data.count);
+                }
+                
+                console.log('✅ Prodotto rimosso dai preferiti');
+            } else {
+                alert('Errore nella rimozione: ' + (data.message || 'Errore sconosciuto'));
+            }
+        })
+        .catch(error => {
+            console.error('❌ Errore:', error);
+            alert('Errore di connessione');
+        });
+    }
+}
+
+// Funzione per aggiungere al carrello (se non esiste già)
+function addToCart(productId) {
+    // Implementa l'aggiunta al carrello se necessario
+    console.log('Aggiungi al carrello prodotto:', productId);
+    // Qui potresti implementare la logica per aggiungere al carrello
+    // o reindirizzare alla pagina del prodotto per scegliere la taglia
+    window.location.href = `product.php?id=${productId}`;
+}
+
+// Setup iniziale della pagina
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📋 Wishlist page loaded - Image click removal system active');
+});
+</script>

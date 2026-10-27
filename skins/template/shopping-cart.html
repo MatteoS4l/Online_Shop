@@ -1,0 +1,282 @@
+<!-- Breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.php" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Carrello
+			</span>
+		</div>
+	</div>
+		
+	<!-- Shoping Cart -->
+	<div class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart text-center">
+								<tr>
+									<th class="column-1 text-center">Prodotto</th>
+									<th class="column-2 text-center">Nome</th>
+									<th class="column-3 text-center">Prezzo</th>
+									<th class="column-4 text-center">Taglia</th>
+									<th class="column-5 text-center">Quantità</th>
+									<th class="column-6 text-center">Totale</th>
+								</tr>
+								<[foreach]> <[elemento_carrello]> <[/foreach]>
+							</table>
+						</div>
+						
+						<!-- Pulsante Aggiorna Carrello -->
+						<div class="flex-w flex-c-m p-t-20">
+							<button onclick="updateCart()" class="flex-c-m stext-105 cl2 size-112 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer" style="font-size: 14px;">
+								Aggiorna Carrello
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Totale Carrello
+						</h4>
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Subtotale:
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2" id="cart-total-display">
+									€ <[CART_TOTAL]>
+								</span>
+							</div>
+						</div>
+						<div class="flex-w flex-c-m p-t-20">
+							<button class="btn btn-success w-100" onclick="window.location.href='checkout.php'">Procedi al checkout</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+// Funzione per rimuovere un prodotto dal carrello
+function rimuoviDaCarrello(productId, size) {
+    console.log('🗑️ rimuoviDaCarrello chiamata con:', {productId, size});
+    
+    const conferma = confirm('Sei sicuro di voler rimuovere questo prodotto dal carrello?');
+    console.log('❓ Conferma utente:', conferma);
+    
+    if (conferma) {
+        console.log('✅ Utente ha confermato, procedendo...');
+        
+        // Prova diversi metodi per trovare la riga della tabella
+        let productRow = document.querySelector(`input[data-product-id="${productId}"][data-size="${size}"]`)?.closest('tr');
+        
+        // Se non trova con il primo metodo, prova con un selettore più generale
+        if (!productRow) {
+            console.log('⚠️ Primo metodo fallito, provando alternativa...');
+            const allInputs = document.querySelectorAll('.num-product');
+            for (let input of allInputs) {
+                if (input.getAttribute('data-product-id') === productId && input.getAttribute('data-size') === size) {
+                    productRow = input.closest('tr');
+                    break;
+                }
+            }
+        }
+        
+        // Se ancora non trova, usa l'evento click come riferimento
+        if (!productRow) {
+            console.log('⚠️ Secondo metodo fallito, usando event.target...');
+            try {
+                productRow = event.target?.closest('tr');
+            } catch (e) {
+                console.log('❌ Errore con event.target:', e);
+            }
+        }
+        
+        console.log('🔍 Riga trovata:', productRow);
+        
+        // Verifica se window.cartManager esiste
+        console.log('🤔 window.cartManager disponibile:', typeof window.cartManager);
+        
+        // Forziamo l'uso della nostra chiamata AJAX per avere l'animazione
+        console.log('🌐 Usando chiamata AJAX diretta (forzato per animazione)');
+        // Fallback: chiamata AJAX usando la stessa logica del CartManager
+        const formData = new FormData();
+        formData.append('action', 'remove');
+        formData.append('product_id', productId);
+        formData.append('size', size);
+
+        console.log('📤 Inviando richiesta AJAX...');
+        
+        fetch('include/ajax/cart_handler.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('📥 Risposta ricevuta:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('✅ Risposta server:', data);
+            if (data.success) {
+                // Rimuovi la riga dalla tabella con animazione
+                if (productRow) {
+                    console.log('🎬 Iniziando animazione rimozione...');
+                    productRow.style.transition = 'opacity 0.3s ease';
+                    productRow.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        productRow.remove();
+                        console.log('🗑️ Riga rimossa dal DOM');
+                        
+                        // Controlla se il carrello è vuoto
+                        const remainingRows = document.querySelectorAll('.table-shopping-cart tr:not(:first-child)');
+                        console.log('📊 Righe rimanenti:', remainingRows.length);
+                        
+                        if (remainingRows.length === 0) {
+                            console.log('🔄 Carrello vuoto, ricaricando...');
+                            // Se non ci sono più prodotti, ricarica la pagina per mostrare carrello vuoto
+                            window.location.reload();
+                        } else {
+                            console.log('💰 Aggiornando totale...');
+                            // Aggiorna il totale del carrello se necessario
+                            updateCartTotal();
+                        }
+                    }, 300);
+                } else {
+                    console.log('❌ Riga non trovata per animazione - ricaricando pagina');
+                    window.location.reload();
+                }
+            } else {
+                console.log('❌ Errore server:', data.error);
+                alert(data.error || 'Errore nella rimozione dal carrello');
+            }
+        })
+        .catch(error => {
+            console.error('❌ Errore fetch:', error);
+            alert('Errore di connessione');
+        });
+    } else {
+        console.log('❌ Utente ha annullato');
+    }
+}
+
+// Funzione per aggiornare il totale del carrello (opzionale)
+function updateCartTotal() {
+    let total = 0;
+    const priceElements = document.querySelectorAll('.table-shopping-cart tr:not(:first-child) .column-6');
+    
+    priceElements.forEach(element => {
+        const priceText = element.textContent.replace('€', '').trim();
+        const price = parseFloat(priceText);
+        if (!isNaN(price)) {
+            total += price;
+        }
+    });
+    
+    const totalElement = document.getElementById('cart-total-display');
+    if (totalElement) {
+        totalElement.textContent = '€' + total.toFixed(2);
+    }
+}
+
+// Funzione per aggiornare il carrello con le nuove quantità
+function updateCart() {
+    console.log('🔄 Funzione updateCart chiamata');
+    
+    const updates = [];
+    const inputs = document.querySelectorAll('.num-product');
+    
+    console.log('📝 Input trovati:', inputs.length);
+    
+    // Raccoglie tutti i valori dagli input
+    inputs.forEach(input => {
+        const productId = input.dataset.productId;
+        const size = input.dataset.size;
+        const quantity = parseInt(input.value);
+        
+        console.log('📦 Prodotto:', {productId, size, quantity});
+        
+        if (productId && size && quantity > 0) {
+            updates.push({
+                product_id: productId,
+                size: size,
+                quantity: quantity
+            });
+        }
+    });
+    
+    console.log('📊 Updates da inviare:', updates);
+    
+    if (updates.length > 0) {
+        console.log('✅ Invio form...');
+        
+        // Crea un form nascosto e lo invia
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'carrello.php';
+        
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'action';
+        actionInput.value = 'update_cart';
+        form.appendChild(actionInput);
+        
+        const updatesInput = document.createElement('input');
+        updatesInput.type = 'hidden';
+        updatesInput.name = 'updates';
+        updatesInput.value = JSON.stringify(updates);
+        form.appendChild(updatesInput);
+        
+        document.body.appendChild(form);
+        form.submit();
+    } else {
+        console.log('❌ Nessun aggiornamento da fare');
+        alert('Nessuna modifica da salvare');
+    }
+}
+
+// Inizializzazione quando il DOM è pronto
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DOM caricato, funzione rimuoviDaCarrello disponibile:', typeof rimuoviDaCarrello);
+    
+    // Validazione input manuale
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('num-product')) {
+            const input = e.target;
+            let newValue = parseInt(input.value);
+            const minValue = parseInt(input.min) || 1;
+            const maxValue = parseInt(input.max) || 999;
+            
+            // Validazione
+            if (isNaN(newValue) || newValue < minValue) newValue = minValue;
+            if (newValue > maxValue) newValue = maxValue;
+            
+            input.value = newValue;
+        }
+    });
+    
+    // Effetto hover per le immagini
+    const cartImages = document.querySelectorAll('.how-itemcart1');
+    cartImages.forEach(function(item) {
+        item.addEventListener('mouseenter', function() {
+            this.querySelector('img').style.opacity = '0.7';
+        });
+        item.addEventListener('mouseleave', function() {
+            this.querySelector('img').style.opacity = '1';
+        });
+    });
+});
+</script>

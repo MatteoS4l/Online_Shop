@@ -1,0 +1,27 @@
+<div class="categorie-sidebar">
+    <div style="margin-bottom: 18px;">
+        <a href="product.php" style="display:inline-block;padding:7px 18px;background:#0a4968;color:#fff;border:none;border-radius:4px;font-family:Montserrat,Arial,sans-serif;font-size:1em;text-decoration:none;transition:background 0.2s;">Pulisci filtri</a>
+    </div>
+    <div style="font-size: 1.5em; font-family: Montserrat, Arial, sans-serif; font-weight: bold; margin-bottom: 10px; color:#0a4968;">Genere</div>
+    <form id="genere-form" method="get" style="margin-bottom:18px;">
+        <[GENERI_CHECKBOXES]>
+        <[GENERI_HIDDEN_CAT]>
+    </form>
+    <div style="font-size: 1.5em; font-family: Montserrat, Arial, sans-serif; font-weight: bold; margin-bottom: 10px; color:#0a4968;">Brand</div>
+    <div style="position:relative;margin-bottom:18px;">
+        <button type="button" id="brandDropdownBtn" style="width:100%;text-align:left;padding:7px 12px;background:#fff;color:#0a4968;border:1px solid #0a4968;border-radius:4px;font-family:Montserrat,Arial,sans-serif;font-size:1em;cursor:pointer;">
+            <[BRAND_SELECTED]>
+            <span style="float:right;">&#9660;</span>
+        </button>
+        <div id="brandDropdownMenu" style="display:none;position:absolute;z-index:10;top:110%;left:0;width:100%;max-height:220px;overflow-y:auto;background:#fff;border:1px solid #0a4968;border-radius:4px;box-shadow:0 2px 8px rgba(10,73,104,0.08);">
+            <div style="padding:6px 10px;"><input type="text" id="brandSearchInput" placeholder="Cerca brand..." style="width:100%;padding:5px 8px;border:1px solid #ccc;border-radius:3px;font-size:1em;"></div>
+            <ul id="brandListUl" style="list-style:none;margin:0;padding:0;">
+                <[BRAND_LIST]>
+            </ul>
+        </div>
+    </div>
+    <div style="font-size: 1.5em; font-family: Montserrat, Arial, sans-serif; font-weight: bold; margin-bottom: 10px; color:#0a4968;">Categorie</div>
+    <ul id="cattable" class="list" style="color:#0a4968;">
+        <[CATEGORIE_LIST]>
+    </ul>
+</div>

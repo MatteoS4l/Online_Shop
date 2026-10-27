@@ -1,0 +1,128 @@
+<!-- checkout.html - Template pagina di checkout per mioecom -->
+<div class="container mt-5 pt-5 pb-5">
+  <!-- Checkout title removed as requested -->
+  <div class="row">
+    <!-- Colonna sinistra: selezioni -->
+    <div class="col-lg-7 col-md-12 mb-4">
+      <form method="post" action="include/php-utils/conferma_checkout.php" id="checkout-form">
+        <!-- Selezione indirizzo -->
+        <div class="card mb-3">
+          <div class="card-header mtext-101 cl2">Indirizzo di spedizione</div>
+          <div class="card-body">
+            <div class="rs1-select2 mb-2 position-relative">
+              <select class="form-select" id="indirizzo" name="indirizzo" required style="padding-right: 2.5rem;">
+                <option value="">Seleziona indirizzo...</option>
+                <[INDIRIZZI_UTENTE]>
+              </select>
+            </div>
+            <button type="button" class="btn btn-link p-0" id="aggiungi-indirizzo">+ Aggiungi nuovo indirizzo</button>
+          </div>
+        </div>
+        <!-- Selezione corriere -->
+        <div class="card mb-3">
+          <div class="card-body p-0">
+            <div class="wrap-table-shopping-cart">
+              <table class="table-shopping-cart text-center">
+                <tr>
+                  <th class="column-1 text-center mtext-101 cl2">#</th>
+                  <th class="column-2 text-center mtext-101 cl2">Nome</th>
+                  <th class="column-3 text-center mtext-101 cl2">Tempi</th>
+                  <th class="column-4 text-center mtext-101 cl2">Costo</th>
+                </tr>
+                <[CORRIERI_CHECKOUT]>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Selezione pagamento -->
+        <div class="card mb-3">
+          <div class="card-body p-0">
+            <div class="wrap-table-shopping-cart">
+              <table class="table-shopping-cart text-center">
+                <tr>
+                  <th class="column-1 text-center mtext-101 cl2">#</th>
+                  <th class="column-2 text-center mtext-101 cl2">Metodo</th>
+                  <th class="column-3 text-center mtext-101 cl2">Descrizione</th>
+                </tr>
+                <[PAGAMENTI_CHECKOUT]>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Colonna destra: riepilogo -->
+    <div class="col-lg-5 col-md-12">
+      <div class="card mb-3">
+        <div class="card-header mtext-101 cl2">Riepilogo ordine</div>
+        <div class="card-body">
+          <[RIEPILOGO_CARRELLO]>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">Codice sconto</div>
+        <div class="card-body">
+          <form method="post" action="include/ajax/check_coupon.php" style="display: flex; flex-direction: column; gap: 8px;">
+            <input type="text" class="form-control mb-2" id="codice-sconto" name="codice_sconto" placeholder="Inserisci codice sconto" <[COUPON_DISABLED]> >
+            <button type="submit" class="btn btn-outline-primary w-100" <[COUPON_DISABLED]> >Applica</button>
+          </form>
+          <div id="sconto-feedback" class="mt-2">
+            <[COUPON_FEEDBACK]>
+          </div>
+        </div>
+      </div>
+      <button type="submit" form="checkout-form" class="btn btn-success w-100" id="conferma-ordine">Conferma ordine</button>
+    </div>
+  </div>
+</div>
+<script src="skins/template/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="skins/template/js/checkout.js"></script>
+<script>
+$(document).ready(function() {
+  $('#aggiungi-indirizzo').on('click', function() {
+    var indirizzo = prompt('Via e numero:');
+    if (!indirizzo || indirizzo.trim() === '') return;
+    var citta = prompt('Città:');
+    if (!citta || citta.trim() === '') return;
+    var regione = prompt('Regione:');
+    if (!regione || regione.trim() === '') return;
+    var provincia = prompt('Provincia:');
+    if (!provincia || provincia.trim() === '') return;
+    var cap = prompt('CAP:');
+    if (!cap || cap.trim() === '') return;
+
+    $.ajax({
+      url: 'include/ajax/add_address.php',
+      method: 'POST',
+      data: {
+        indirizzo: indirizzo,
+        citta: citta,
+        regione: regione,
+        provincia: provincia,
+        cap: cap
+      },
+      success: function(response) {
+        try {
+          var data = JSON.parse(response);
+          if (data.success && data.id) {
+            var optionText = indirizzo + ', ' + citta + ' (' + regione + ', ' + provincia + ') - ' + cap;
+            var option = $('<option>').val(data.id).text(optionText);
+            $('#indirizzo').append(option);
+            $('#indirizzo').val(data.id);
+            alert('Indirizzo aggiunto con successo!');
+          } else {
+            alert(data.error || 'Errore nell\'aggiunta dell\'indirizzo');
+          }
+        } catch (e) {
+          // alert rimosso: la risposta non valida non viene più notificata
+        }
+      },
+      error: function() {
+        alert('Errore di connessione');
+      }
+    });
+  });
+});
+</script>
+</div>
+<[SPAZIO_FINE]>

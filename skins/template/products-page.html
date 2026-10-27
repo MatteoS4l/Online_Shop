@@ -1,0 +1,81 @@
+</div>
+
+<!-- JS per filtri AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="skins/template/js/products-filters.js"></script>
+<!-- JS per modal prodotto -->
+<script src="skins/template/js/product-modal-manager.js"></script>
+<!-- Title page -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('skins/template/images/bg-01.jpg');">
+	<h2 class="ltext-105 cl0 txt-center">
+		<[PAGE_TITLE]>
+	</h2>
+</section>
+
+<!-- breadcrumb -->
+<div class="container">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="index.php" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<span class="stext-109 cl4">
+			<[BREADCRUMB_TEXT]>
+		</span>
+	</div>
+</div>
+
+
+<!-- Product -->
+<div class="bg0 m-t-23 p-b-140">
+	<div class="container">
+		<div class="row">
+			<!-- Sidebar filtri -->
+<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+	<div class="filter-widget">
+		<[CATEGORIE_FILTRI]>
+	</div>
+</div>
+			<!-- Fine sidebar filtri -->
+
+			<div class="col-lg-9 order-1 order-lg-2">
+				<div class="flex-w flex-sb-m p-b-52">
+					<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+						<span class="stext-102 cl2 size-115 p-t-4 p-r-18">
+							<[PRODUCTS_COUNT_TEXT]>
+						</span>
+					</div>
+					<div class="stext-102 cl2 p-t-13 p-b-14">
+						Pagina <span id="current-page"><[CURRENT_PAGE]></span> di <span id="total-pages"><[TOTAL_PAGES]></span>
+					</div>
+				</div>
+				<!-- Product grid -->
+				<div class="row isotope-grid" id="products-container">
+					<[PRODUCTS_GRID]>
+				</div>
+				<!-- Pagination -->
+				<div class="flex-c-m flex-w w-full p-t-38" id="pagination-section">
+					<[PAGINATION_LINKS]>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+	<div class="overlay-modal1 js-hide-modal1"></div>
+
+	<div class="container">
+		<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+			<button class="how-pos3 hov3 trans-04 js-hide-modal1">
+				<img src="skins/template/images/icons/icon-close.png" alt="CLOSE">
+			</button>
+
+			<div class="row" id="modal-content">
+				<!-- Il contenuto verrà caricato dinamicamente -->
+			</div>
+		</div>
+	</div>
+</div>
